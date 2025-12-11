@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Flores Animadas Neón</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .scene {
+        position: relative;
+        width: 600px;
+        height: 500px;
+    }
+
+    /* Partículas flotando */
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 230, 150, 0.9);
+        border-radius: 50%;
+        filter: drop-shadow(0 0 6px gold);
+        animation: floatUp linear forwards;
+    }
+
+    @keyframes floatUp {
+        from { transform: translateY(0); opacity: 1; }
+        to   { transform: translateY(-120px) scale(0.4); opacity: 0; }
+    }
+
+    /* Tallos */
+    .stem {
+        position: absolute;
+        bottom: 0;
+        width: 6px;
+        background: linear-gradient(#46ff8b, #0a7d2c);
+        border-radius: 5px;
+        transform-origin: bottom;
+        transform: scaleY(0);
+        animation: stemGrow 2s ease-out forwards;
+        filter: drop-shadow(0 0 10px #00ff7b);
+    }
+
+    @keyframes stemGrow {
+        from { transform: scaleY(0); }
+        to   { transform: scaleY(1); }
+    }
+
+    /* Hojas */
+    .leaf {
+        position: absolute;
+        width: 35px;
+        height: 18px;
+        background: #32ff66;
+        border-radius: 50px 50px 0 50px;
+        filter: drop-shadow(0 0 6px #28ff5c);
+        opacity: 0;
+        animation: leafPop 1.4s ease-out forwards;
+        transform-origin: left;
+    }
+
+    @keyframes leafPop {
+        0%   { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Flores */
+    .flower {
+        position: absolute;
+        transform: translateX(-50%) scale(0);
+        animation: bloom 1.4s ease-out forwards;
+        filter: drop-shadow(0 0 12px #d18aff);
+    }
+
+    @keyframes bloom {
+        from { transform: translateX(-50%) scale(0); opacity: 0; }
+        to   { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+
+    /* Pétalos */
+    .petal {
+        width: 50px;
+        height: 28px;
+        background: #c46aff;
+        position: absolute;
+        border-radius: 50px;
+        filter: brightness(1.4);
+    }
+
+    .petal:nth-child(1) { top: -35px; left: -25px; }
+    .petal:nth-child(2) { top: -35px; left: 0; }
+    .petal:nth-child(3) { top: -10px; left: -38px; }
+    .petal:nth-child(4) { top: -10px; left: 13px; }
+
+    /* Centro */
+    .center {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #ff7ce6;
+        position: absolute;
+        top: -15px;
+        left: -3px;
+        box-shadow: 0 0 14px #ff44cc;
+    }
+</style>
+</head>
+
+<body>
+<div class="scene" id="scene">
+
+    <!-- Flor izquierda -->
+    <div class="stem" style="left: 30%; height: 180px; animation-delay: .2s;"></div>
+    <div class="leaf" style="left: 30%; bottom: 90px; transform: rotate(25deg); animation-delay: .9s;"></div>
+    <div class="flower" style="left: 30%; bottom: 175px; animation-delay: 1.7s;">
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="center"></div>
+    </div>
+
+    <!-- Flor central -->
+    <div class="stem" style="left: 50%; height: 230px; animation-delay: .1s;"></div>
+    <div class="leaf" style="left: 50%; bottom: 110px; transform: rotate(-30deg); animation-delay: 1s;"></div>
+    <div class="flower" style="left: 50%; bottom: 225px; animation-delay: 1.8s;">
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="center"></div>
+    </div>
+
+    <!-- Flor derecha -->
+    <div class="stem" style="left: 70%; height: 160px; animation-delay: .3s;"></div>
+    <div class="leaf" style="left: 70%; bottom: 80px; transform: rotate(35deg); animation-delay: 1.2s;"></div>
+    <div class="flower" style="left: 70%; bottom: 155px; animation-delay: 1.9s;">
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="center"></div>
+    </div>
+
+</div>
+
+<script>
+/* Partículas animadas */
+function createParticle() {
+    const scene = document.getElementById("scene");
+    const p = document.createElement("div");
+    p.className = "particle";
+
+    p.style.left = (Math.random() * 550 + 20) + "px";
+    p.style.bottom = (Math.random() * 120 + 40) + "px";
+    p.style.animationDuration = (2 + Math.random() * 2) + "s";
+
+    scene.appendChild(p);
+    setTimeout(() => p.remove(), 2500);
+}
+
+setInterval(createParticle, 180);
+</script>
+
+</body>
+</html>
